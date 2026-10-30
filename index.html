@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi negocio · Herramienta gratuita de MakingHR para emprendedoras</title>
+<meta name="description" content="Ordena qué ofreces, a quién y con qué pruebas, y crea un asistente de IA que escriba como tú. Gratis y sin registro: lo que escribes se queda en tu navegador.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://appemprendedorasxerandoredes.vercel.app/">
+<meta property="og:title" content="Mi negocio · Herramienta gratuita de MakingHR para emprendedoras">
+<meta property="og:description" content="Ordena qué ofreces, a quién y con qué pruebas, y crea un asistente de IA que escriba como tú. Gratis y sin registro: lo que escribes se queda en tu navegador.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="MakingHR">
+<style>
+:root{--bg:#F8F9FA;--fg:#0F172A;--card:#EEF0F2;--primary:#4F46E5;--primary-d:#4338CA;--accent:#FF7908;--muted:#E8EAED;--mfg:#64748B;--line:#CBD5E1;--white:#fff;--ok:#0F766E;--r:14px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
+h1,h2,h3{margin:0;line-height:1.2}
+h1{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:1.3rem;font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.hint{color:var(--mfg);font-size:.875rem}
+.wm{font-weight:700;font-size:1.25rem;letter-spacing:-.02em}
+.wm b{color:var(--primary);font-weight:700}
+.top{padding:18px 16px 4px}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.save{font-size:.8rem;color:var(--mfg);text-align:right;max-width:60%}
+.mainnav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+.mbtn{appearance:none;display:flex;align-items:center;gap:10px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font:600 .95rem/1.2 Inter,system-ui,sans-serif;color:var(--fg);cursor:pointer;min-height:52px}
+.mbtn:hover{border-color:var(--primary)}
+.mbtn .n{flex:0 0 auto;display:grid;place-items:center;width:28px;height:28px;border-radius:99px;background:var(--muted);color:var(--mfg);font-size:.85rem}
+.mbtn[aria-selected="true"]{background:var(--primary);border-color:var(--primary);color:#fff}
+.mbtn[aria-selected="true"] .n{background:#fff;color:var(--primary)}
+.hero{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:6px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:6px 0 0;padding-bottom:2px;border-bottom:2px solid var(--muted);scrollbar-width:thin}
+.tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:12px 14px;font:600 .95rem Inter,system-ui,sans-serif;color:var(--mfg);cursor:pointer;white-space:nowrap;min-height:44px}
+.tab:hover{color:var(--fg)}
+.tab[aria-selected="true"]{color:var(--primary);border-bottom-color:var(--primary)}
+.tab .ok{color:var(--ok);margin-left:6px}
+main{padding:20px 0 40px}
+.sec[hidden]{display:none}
+.panel{display:grid;gap:18px;margin-top:18px}
+.panel[hidden]{display:none}
+.card{background:var(--card);border-radius:var(--r);padding:20px}
+.card.plain{background:var(--white);border:1px solid var(--line)}
+.card.note{border-left:5px solid var(--primary)}
+.card h2+.hint,.card h3+.hint{margin-top:4px}
+.stack{display:grid;gap:14px}
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 14px;margin-bottom:14px}
+.mins{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:var(--fg);border-radius:99px;padding:2px 9px;vertical-align:middle;margin-left:8px}
+.field{display:grid;gap:5px}
+label{font-weight:600;font-size:.95rem}
+input,select,textarea{width:100%;font:400 1rem Inter,system-ui,sans-serif;color:var(--fg);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+textarea{resize:vertical;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(79,70,229,.35);border-color:var(--primary)}
+input[type="checkbox"]{width:22px;height:22px;min-height:0;accent-color:var(--primary);flex:0 0 auto;margin:0;cursor:pointer}
+.btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;font:600 .95rem Inter,system-ui,sans-serif;cursor:pointer;min-height:44px;background:var(--primary);color:#fff}
+.btn:hover{background:var(--primary-d)}
+.btn.ghost{background:var(--white);color:var(--primary);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--primary)}
+.btn.cta{background:var(--accent);color:var(--fg)}
+.btn.cta:hover{background:#E86D00}
+.btn.danger{background:var(--white);color:#B91C1C;border:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.chk label{font-weight:400;font-size:.95rem;cursor:pointer}
+.cols2{display:grid;gap:4px 18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.item{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:12px}
+.item .grid2{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.tips{margin:0;padding-left:20px;display:grid;gap:8px}
+.example{background:var(--white);border:1px dashed var(--line);border-radius:12px;padding:14px;display:grid;gap:6px;font-size:.9rem}
+.example b{color:var(--primary)}
+.example i{color:var(--mfg)}
+.status{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.status li{display:flex;gap:10px;align-items:flex-start}
+.status .dot{flex:0 0 auto;display:grid;place-items:center;width:22px;height:22px;border-radius:99px;background:var(--muted);color:var(--mfg);font-size:.8rem;font-weight:700}
+.status li.ok .dot{background:var(--ok);color:#fff}
+.status li.bad .dot{background:var(--accent);color:var(--fg)}
+.alert{background:#FFF4E8;border:1px solid var(--accent);border-radius:12px;padding:12px 14px;font-size:.92rem}
+.alert[hidden]{display:none}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;line-height:1.45}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:14px}
+ol.steps>li{counter-increment:s;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+ol.steps>li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:99px;background:var(--primary);color:#fff;font-weight:700;font-size:.9rem}
+.cmds{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cmd{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cmd b{display:block;color:var(--primary);font-size:.95rem;margin-bottom:2px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;font-size:.95rem;box-shadow:0 10px 30px rgba(15,23,42,.3);z-index:20;max-width:calc(100vw - 32px);text-align:center}
+.toast[hidden]{display:none}
+footer{border-top:2px solid var(--muted);padding:22px 0 40px;display:grid;gap:14px}
+.fbtns{display:flex;flex-wrap:wrap;gap:10px}
+.lic{font-size:.8rem;color:var(--mfg)}
+@media (max-width:640px){.mainnav{grid-template-columns:1fr}.card{padding:16px}.tab{padding:12px 11px;font-size:.9rem}}
+@media print{body{background:#fff;font-size:11pt}.top,.tabs,footer,.btn,.toast{display:none!important}.sec[hidden],.panel[hidden]{display:grid!important;margin-bottom:18px}input,select,textarea{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;min-height:0}main{padding-top:6px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a href="#app" class="hint" style="position:absolute;left:-9999px">Saltar al contenido</a>
+<header class="top wrap">
+  <div class="top-row">
+    <span class="wm" aria-label="makinghr">making<b>hr</b></span>
+    <span class="save" id="save" role="status" aria-live="polite">Se guarda solo en este navegador</span>
+  </div>
+  <nav class="mainnav" role="tablist" aria-label="Secciones">
+    <button class="mbtn" role="tab" id="main-negocio" type="button" aria-controls="sec-negocio" aria-selected="true"><span class="n">1</span><span>Mi negocio</span></button>
+    <button class="mbtn" role="tab" id="main-asistente" type="button" aria-controls="sec-asistente" aria-selected="false" tabindex="-1"><span class="n">2</span><span>Mi asistente de IA</span></button>
+  </nav>
+</header>
+
+<main class="wrap" id="app">
+<!-- ============ 1. MI NEGOCIO ============ -->
+<section class="sec" id="sec-negocio" aria-labelledby="main-negocio">
+  <div class="hero"><div><h1>Mi negocio</h1><p class="hint" style="margin-top:4px">Tres pasos, sin IA: qué ofreces, dónde están tus clientes y qué pruebas tienes de que lo haces bien.</p></div></div>
+  <nav class="tabs" role="tablist" aria-label="Mi negocio">
+    <button class="tab" role="tab" id="tab-p1" aria-controls="panel-p1" type="button" aria-selected="true"><span class="tl">Paso 1 · Qué ofrezco</span><span class="ok" data-ok="p1"></span></button>
+    <button class="tab" role="tab" id="tab-p2" aria-controls="panel-p2" type="button" aria-selected="false" tabindex="-1"><span class="tl">Paso 2 · Clientes y aliados</span><span class="ok" data-ok="p2"></span></button>
+    <button class="tab" role="tab" id="tab-p3" aria-controls="panel-p3" type="button" aria-selected="false" tabindex="-1"><span class="tl">Paso 3 · Pruebas</span><span class="ok" data-ok="p3"></span></button>
+    <button class="tab" role="tab" id="tab-pd" aria-controls="panel-pd" type="button" aria-selected="false" tabindex="-1"><span class="tl">Descargar ficha</span><span class="ok" data-ok="pd"></span></button>
+  </nav>
+
+  <!-- Paso 1 -->
+  <div class="panel" role="tabpanel" id="panel-p1" aria-labelledby="tab-p1">
+    <div class="card note">
+      <h2>Paso 1 · Qué ofrezco y a quién</h2>
+      <p style="margin-top:8px">Una estrategia es una elección: decir a quién ayudas también es decir a quién no. Si tu cliente es «todo el mundo», ni tú ni la IA sabréis por dónde empezar. Escribe tú, con tus palabras, sin IA.</p>
+      <p class="hint" style="margin-top:8px">Sin datos personales: ni tu nombre, ni teléfono, ni email, ni DNI, ni dirección. Tampoco nombres de clientes particulares. Lo que escribas aquí acabará en tu asistente de IA.</p>
+    </div>
+    <div class="card"><div class="stack">
+      <div class="field"><label for="b1">1.1 Mi frase</label><p class="hint">Completa: «Ayudo a [quién concreto] a [resultado] de una forma que [lo que me diferencia]». Si alguien que no te conoce la lee y entiende a quién vendes, vas bien.</p><textarea id="b1" rows="2" placeholder="Ayudo a familias con niños pequeños a desconectar un fin de semana en el rural, en una casa pensada para ellos desde la cuna hasta la merienda."></textarea></div>
+      <div class="field"><label for="b2">1.2 Qué vendo</label><p class="hint">Uno o dos servicios o productos, con el nombre que les das. Si tienes más, quédate con los que más te importan ahora.</p><textarea id="b2" rows="3"></textarea></div>
+      <div class="field"><label for="b3">1.3 A quién se lo vendo</label><p class="hint">Tipo de cliente concreto: particulares, empresas, entidades, administraciones… ¿Quiénes son, dónde están, qué les preocupa?</p><textarea id="b3" rows="3"></textarea></div>
+      <div class="field"><label for="b4">1.4 Por qué me eligen (o me elegirían)</label><p class="hint">Si mañana desapareces, ¿qué pierde tu cliente? Piensa en lo que cambia para él: tiempo, dinero, tranquilidad, menos errores.</p><textarea id="b4" rows="3"></textarea></div>
+      <div class="field"><label for="b5">1.5 Lo que NO hago o no negocio</label><p class="hint">Trabajos, clientes o condiciones que no aceptas. Sirve para que la IA te avise cuando algo choque con ello.</p><textarea id="b5" rows="2"></textarea></div>
+    </div></div>
+    <div class="card">
+      <h3>1.6 Mi situación</h3>
+      <p class="hint">Solo lo que quieras compartir.</p>
+      <div class="grid2" style="margin-top:12px">
+        <div class="field"><label for="b6">En qué punto está mi negocio</label><select id="b6"><option value="">Elige una opción</option><option>Es una idea</option><option>Empezando (menos de 1 año)</option><option>Funcionando (1 a 3 años)</option><option>Consolidado (más de 3 años)</option><option>Quiero darle un giro</option></select></div>
+        <div class="field"><label for="b7">Horas por semana que le dedico</label><input id="b7" type="text"></div>
+        <div class="field"><label for="b8">Dónde trabajo</label><input id="b8" type="text" placeholder="Comarca, online, a domicilio…"></div>
+        <div class="field"><label for="b9">Precios o forma de cobrar (opcional)</label><input id="b9" type="text"></div>
+      </div>
+    </div>
+    <div><button class="btn" type="button" data-go="p2">Siguiente: clientes y aliados</button></div>
+  </div>
+
+  <!-- Paso 2 -->
+  <div class="panel" role="tabpanel" id="panel-p2" aria-labelledby="tab-p2" hidden>
+    <div class="card note">
+      <h2>Paso 2 · Dónde están mis clientes y aliados</h2>
+      <p style="margin-top:8px">Aquí decides dónde vas a poner tu tiempo, para no ir detrás de todo a la vez.</p>
+      <p class="hint" style="margin-top:8px">Las empresas, entidades y convocatorias se anotan por su nombre. Las personas, solo por su cargo o por el tipo de cliente.</p>
+    </div>
+    <div class="card">
+      <h3>2.1 Tipos de oportunidad que me interesan</h3><p class="hint">Marca todas las que apliquen.</p>
+      <div class="cols2" style="margin-top:8px" id="opps"></div>
+      <div style="margin-top:10px;max-width:420px"><div class="field"><label for="b10">Otro (opcional)</label><input id="b10" type="text"></div></div>
+    </div>
+    <div class="card">
+      <div class="head"><h3>2.2 Mis 5 clientes o aliados prioritarios</h3></div>
+      <p class="hint" style="margin:-6px 0 12px">Puede ser un cliente concreto, una entidad con la que colaborar, una convocatoria o una feria. Piensa en a quién conoces ya: la mayor parte de los primeros clientes suele llegar de la propia red.</p>
+      <div class="stack" id="prios"></div>
+    </div>
+    <div class="card">
+      <h3>2.3 Por dónde llego a ellos</h3><p class="hint">Marca los canales que usas o quieres usar.</p>
+      <div class="cols2" style="margin-top:8px" id="chans"></div>
+      <div class="grid2" style="margin-top:10px">
+        <div class="field"><label for="b11">Otro (opcional)</label><input id="b11" type="text"></div>
+        <div class="field"><label for="b12">Canal por el que empiezo esta semana</label><input id="b12" type="text"></div>
+      </div>
+    </div>
+    <div class="card"><div class="field"><label for="b13">2.4 Lo que descarto</label><p class="hint">Clientes, canales u oportunidades en los que no voy a perder tiempo ahora.</p><textarea id="b13" rows="2"></textarea></div></div>
+    <div><button class="btn" type="button" data-go="p3">Siguiente: pruebas de que lo hago bien</button></div>
+  </div>
+
+  <!-- Paso 3 -->
+  <div class="panel" role="tabpanel" id="panel-p3" aria-labelledby="tab-p3" hidden>
+    <div class="card note">
+      <h2>Paso 3 · Pruebas de que lo hago bien</h2>
+      <p style="margin-top:8px">Una prueba es algo que hiciste, con un resultado, que demuestra que sabes hacerlo. Sale de tu negocio, de un empleo anterior, de un voluntariado o de cualquier proyecto. Si lo cuentas con hechos, no hace falta adornarlo.</p>
+      <p class="hint" style="margin-top:8px">Fórmula: situación, qué hice yo, resultado. Si no tienes un número, vale un antes y un después, o algo que alguien dijo de tu trabajo. Sin nombres de clientes particulares.</p>
+    </div>
+    <div class="example">
+      <b>Ejemplo ilustrativo (no lo copies, sirve de modelo)</b>
+      <p><i>Qué demuestra: </i>Organizar actividades para grupos.</p>
+      <p><i>Dónde y cuándo: </i>Mi taller de cerámica, primavera de 2025.</p>
+      <p><i>Situación: </i>Un colegio de la comarca quería una actividad para 40 alumnos y no tenía presupuesto para transporte.</p>
+      <p><i>Qué hice yo: </i>Propuse ir yo al colegio, preparé el material en kits individuales y dividí al alumnado en dos turnos.</p>
+      <p><i>Resultado: </i>Repitieron en otoño y me recomendaron a otros dos centros.</p>
+      <p><i>Para qué clientes sirve: </i>Centros educativos, asociaciones y concellos que organizan actividades.</p>
+    </div>
+    <div id="proofs" class="stack" style="gap:18px"></div>
+    <div class="card"><div class="stack">
+      <div class="field"><label for="b50">3.4 Experiencia anterior que aporta a mi negocio</label><p class="hint">Lo que traes de otros trabajos o etapas y que tus clientes notan, aunque venga de otro sector.</p><textarea id="b50" rows="3"></textarea></div>
+      <div class="field"><label for="b51">3.5 Herramientas, idiomas, formación y redes a las que pertenezco</label><p class="hint">Con el nivel real. Las asociaciones o redes de emprendimiento también cuentan.</p><textarea id="b51" rows="3"></textarea></div>
+    </div></div>
+    <div><button class="btn" type="button" data-go="pd">Siguiente: descargar mi ficha</button></div>
+  </div>
+
+  <!-- Descargar -->
+  <div class="panel" role="tabpanel" id="panel-pd" aria-labelledby="tab-pd" hidden>
+    <div class="card note">
+      <h2>Descargar mi ficha de negocio</h2>
+      <p style="margin-top:8px">Este es el archivo que subirás a tu asistente de IA. Antes de descargarlo, repasa que está completo y que no lleva datos personales.</p>
+    </div>
+    <div class="card">
+      <h3>Comprobación rápida</h3>
+      <ul class="status" id="checks" style="margin-top:10px"></ul>
+      <div class="alert" id="pii" hidden style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+      <div class="row"><button class="btn cta" type="button" id="bDown">Descargar mi_negocio.md</button><button class="btn ghost" type="button" id="bCopyMd">Copiar texto</button></div>
+      <p class="hint" style="margin:10px 0 12px">Si tu navegador bloquea la descarga, pulsa «Copiar texto» y pégalo en un documento. Para actualizar tu ficha, vuelve aquí, cambia lo que necesites, descárgala de nuevo y sustituye la anterior en tu asistente.</p>
+      <h3>Vista previa</h3>
+      <textarea class="mono" id="preview" rows="14" readonly aria-label="Vista previa de mi ficha" style="margin-top:8px"></textarea>
+    </div>
+    <div><button class="btn" type="button" data-main="asistente">Siguiente: crear mi asistente de IA para mi negocio</button></div>
+  </div>
+</section>
+
+<!-- ============ 2. MI ASISTENTE ============ -->
+<section class="sec" id="sec-asistente" aria-labelledby="main-asistente" hidden>
+  <div class="hero"><div><h1>Mi asistente de IA</h1><p class="hint" style="margin-top:4px">Con tu ficha de negocio, te ayuda a decidir, a presentarte y a escribir.</p></div></div>
+  <div class="panel">
+    <div class="card note">
+      <h2>Crea tu asistente de IA</h2>
+      <p style="margin-top:8px">Un asistente que conoce tu negocio y te ayuda a decidir qué oportunidades merecen tu tiempo, a presentar tu negocio según a quién te diriges y a escribir mensajes y publicaciones que suenen a ti. Tú decides siempre.</p>
+      <p class="hint" style="margin-top:8px">Lo que subas va a la plataforma de IA que uses, por eso todos tus documentos van sin datos personales, ni tuyos ni de tus clientes.</p>
+    </div>
+    <div class="card">
+      <h3>Antes de empezar: los documentos que subirás a tu gema o proyecto</h3>
+      <p class="hint">Además de las instrucciones, que copiarás más abajo. Cuanto más sepa el asistente de ti y de tu negocio, menos genérico será lo que te devuelva.</p>
+      <div class="stack" style="margin-top:12px">
+        <div class="item"><h3>1. Tu ficha de negocio · imprescindible</h3><p>El archivo mi_negocio.md que acabas de descargar. Sin ella, el asistente no sabe nada de tu negocio.</p></div>
+        <div class="item"><h3>2. Tu CV o tu perfil de LinkedIn, anonimizado</h3><p>Para que conozca tu trayectoria y tus capacidades, y encuentre en ellas pruebas que refuercen tu negocio.</p><p class="hint">Borra antes tu nombre, foto, teléfono, email, dirección, fecha de nacimiento y enlaces personales. El PDF que exporta LinkedIn lleva todo eso en la cabecera: lo más fácil es copiar el texto del perfil en un documento, borrar esos datos y subir el documento.</p></div>
+        <div class="item"><h3>3. La presentación de tu negocio</h3><p>Lo que ya tengas: el texto de tu web o landing page, tu presentación de empresa, tu catálogo o tu tarjeta de servicios. Le cuenta cómo te presentas hoy ante tus clientes.</p><p class="hint">Si tu web está publicada, copia el texto en un documento: el asistente no siempre puede leer enlaces.</p></div>
+        <div class="item"><h3>4. Textos escritos enteramente por ti, sin IA</h3><p>Artículos, emails, propuestas o publicaciones. Le enseñan cómo te expresas tú, para que lo que escriba suene a ti y no a un folleto. Con tres o cuatro es suficiente.</p><p class="hint">Si subes textos que ya hizo una IA, aprenderá el estilo de la IA, no el tuyo. Borra nombres, teléfonos y emails de otras personas.</p></div>
+      </div>
+      <p style="margin-top:14px"><b>Y para probarlo: </b>una oportunidad real, como el texto de una convocatoria o ayuda, la petición de un cliente, una propuesta de colaboración o la información de una feria.</p>
+    </div>
+    <div class="card">
+      <h2>Paso a paso</h2>
+      <ol class="steps" style="margin-top:14px">
+        <li><div><b>Copia las instrucciones. </b>Pulsa el botón de abajo: se copian al portapapeles.</div></li>
+        <li><div><b>Crea tu gema o proyecto. </b>Entra en tu Gemini, ChatGPT o Claude y busca «Gems» o «Proyectos» en el menú. Crea una gema o un proyecto nuevo y ponle nombre. Los menús cambian a veces: si no lo ves, busca la palabra «Gems» o «Proyectos».</div></li>
+        <li><div><b>Pega las instrucciones. </b>En el campo de instrucciones, pega lo que has copiado (Ctrl+V o Cmd+V).</div></li>
+        <li><div><b>Sube tus documentos. </b>Añade como archivos de la gema o proyecto tu ficha mi_negocio.md, tu CV o perfil de LinkedIn anonimizado, la presentación de tu negocio y tus textos escritos sin IA. Guarda la gema o el proyecto.</div></li>
+        <li><div><b>Compruébala. </b>Abre una conversación y escribe «Hola». Debe decirte qué documentos ha encontrado, cuáles faltan, y repetir qué ofreces y a quién. Si no lo hace, no ha leído tus archivos: revisa que están subidos.</div></li>
+        <li><div><b>Pruébala con una oportunidad real. </b>Escribe ANALIZAR, pega el texto y mira el resultado. Después puedes pedirle ADAPTAR o MENSAJE.</div></li>
+      </ol>
+      <p class="hint" style="margin-top:14px">Si tu versión gratuita no te deja crear gemas o proyectos: pega las instrucciones al principio de una conversación normal, adjunta tu ficha y el resto de documentos, y sigue igual. Funciona, aunque tendrás que repetirlo en cada conversación nueva.</p>
+    </div>
+    <div class="alert"><b>Importante: </b>cada vez que abras una gema o proyecto nuevo, sube junto a las instrucciones tus cuatro documentos: tu ficha (mi_negocio.md), tu CV o perfil de LinkedIn anonimizado, la presentación de tu negocio (web, landing page o presentación de empresa) y tus textos escritos enteramente por ti, sin IA. La ficha es imprescindible. Los demás hacen que el asistente te conozca de verdad y escriba como tú.</div>
+    <div class="card">
+      <div class="head"><h3>Instrucciones para pegar en la gema o proyecto</h3><div class="row"><button class="btn cta" type="button" id="bCopyIns">Copiar las instrucciones</button></div></div>
+      <p class="hint" style="margin-bottom:10px">Si el botón no funciona en tu navegador, haz clic dentro del cuadro, selecciona todo (Ctrl+A) y copia (Ctrl+C).</p>
+      <textarea class="mono" id="ins" rows="10" readonly aria-label="Instrucciones del asistente"></textarea>
+    </div>
+    <div class="card">
+      <h3>Qué puedes pedirle</h3>
+      <div class="cmds" style="margin-top:12px">
+        <div class="cmd"><b>ANALIZAR</b><span class="hint">Pegas una oportunidad (convocatoria, cliente, colaboración, feria) y te dice si encaja (alto, medio o bajo) y por qué. Si es una convocatoria, te lista qué comprobar en la fuente oficial.</span></div>
+        <div class="cmd"><b>ADAPTAR</b><span class="hint">Pegas una oportunidad y te prepara la presentación de tu negocio para ella: una versión de 50 palabras, otra de 150 y tus pruebas más pertinentes.</span></div>
+        <div class="cmd"><b>MENSAJE</b><span class="hint">Te prepara un mensaje a un cliente, a un colaborador o a una entidad, tu presentación de 30 segundos o una publicación para redes.</span></div>
+      </div>
+    </div>
+    <div class="card plain">
+      <h3>Reglas de juego</h3>
+      <ul class="tips" style="margin-top:10px">
+        <li>Todo lo que escribe es un borrador: léelo, corrígelo y comprueba que es verdad antes de usarlo.</li>
+        <li>Si te da un dato (un plazo, un requisito, una cifra) que no le has dado tú, compruébalo. La IA se inventa datos con mucha seguridad.</li>
+        <li>Nada de datos de tus clientes: ni nombres, ni teléfonos, ni emails.</li>
+        <li>El encaje que te da es una valoración, no una orden. La decisión es tuya.</li>
+        <li>Si usas otra IA, como un Proyecto de Claude o de ChatGPT, las mismas instrucciones y la misma ficha deberían funcionar igual.</li>
+      </ul>
+    </div>
+    <div><button class="btn ghost" type="button" data-main="negocio">Volver a mi ficha de negocio</button></div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <div class="fbtns">
+    <button class="btn ghost" id="bPrint" type="button">Imprimir o guardar en PDF</button>
+    <button class="btn danger" id="bReset" type="button">Borrar todo</button>
+  </div>
+  <p class="lic">Esta página no envía datos a ningún sitio: no hace conexiones con servidores. Todo lo que escribes se guarda solo en este navegador de este ordenador. Si cambias de navegador o de ordenador, lo que has escrito no viene contigo: descarga tu ficha antes de irte.</p>
+  <p class="lic">MakingHR · RRHH con sentidiño · Licencia CC BY-NC-ND 4.0 · MakingHR / Paula Medina Mora</p>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var KEY="mhr-emprende-v1";
+var $=function(s,c){return (c||document).querySelector(s)};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+
+/* ---------- Campos generados ---------- */
+var OPPS=["Clientes particulares","Empresas","Administraciones o entidades","Ayudas y convocatorias","Colaboraciones con otros negocios","Ferias, mercados y eventos","Venta online"];
+var CHANS=["Boca a boca y mi red de contactos","Redes sociales","Web propia o tienda online","Email","Ferias y mercados","Asociaciones y redes de emprendimiento","Teléfono o visita en persona"];
+var TYPES=["Cliente","Aliado o colaborador","Entidad o administración","Ayuda o convocatoria","Feria o evento","Otro"];
+$("#opps").innerHTML=OPPS.map(function(t,i){return '<div class="chk"><input type="checkbox" id="o'+i+'"><label for="o'+i+'">'+t+'</label></div>'}).join("");
+$("#chans").innerHTML=CHANS.map(function(t,i){return '<div class="chk"><input type="checkbox" id="c'+i+'"><label for="c'+i+'">'+t+'</label></div>'}).join("");
+var h="";
+for(var i=1;i<=5;i++){
+  h+='<div class="item"><h3>Prioridad '+i+'</h3><div class="grid2">'+
+  '<div class="field"><label for="pn'+i+'">Nombre o tipo</label><input id="pn'+i+'" type="text"></div>'+
+  '<div class="field"><label for="pt'+i+'">Qué es</label><select id="pt'+i+'"><option value="">Elige una opción</option>'+TYPES.map(function(t){return "<option>"+t+"</option>"}).join("")+'</select></div></div>'+
+  '<div class="field"><label for="pw'+i+'">Por qué me interesa y qué les puedo ofrecer</label><textarea id="pw'+i+'" rows="2"></textarea></div></div>';
+}
+$("#prios").innerHTML=h;
+h="";
+var PF=[["q","Qué demuestra","input"],["w","Dónde y cuándo","input"],["s","Situación (qué pasaba)","2"],["a","Qué hice yo (acciones concretas)","3"],["r","Resultado","2"],["f","Para qué clientes u oportunidades sirve","input"]];
+for(i=1;i<=3;i++){
+  h+='<div class="card"><h3>3.'+i+' Prueba '+i+'</h3><div class="stack" style="margin-top:12px"><div class="grid2">';
+  PF.forEach(function(f,k){
+    var id="e"+i+f[0];
+    var ctl=f[2]==="input"?'<input id="'+id+'" type="text">':'<textarea id="'+id+'" rows="'+f[2]+'"></textarea>';
+    var cell='<div class="field"><label for="'+id+'">'+f[1]+'</label>'+ctl+'</div>';
+    if(k===2) h+='</div>';
+    h+=cell;
+  });
+  h+='</div></div>';
+}
+$("#proofs").innerHTML=h;
+
+/* ---------- Guardado ---------- */
+function fields(){return $$("main input, main select, main textarea").filter(function(e){return e.id&&!e.readOnly})}
+function collect(){var d={};fields().forEach(function(e){d[e.id]=e.type==="checkbox"?e.checked:e.value});return d}
+function apply(d){fields().forEach(function(e){if(!(e.id in d))return;if(e.type==="checkbox")e.checked=!!d[e.id];else e.value=d[e.id]})}
+function load(){try{var r=localStorage.getItem(KEY);if(r)apply(JSON.parse(r))}catch(e){}}
+var tmr;
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(collect()));$("#save").textContent="Guardado en este navegador"}
+  catch(e){$("#save").textContent="No se puede guardar aquí: descarga tu ficha antes de cerrar"}
+}
+document.addEventListener("input",function(e){if(e.target.closest("main")){clearTimeout(tmr);tmr=setTimeout(function(){save();refresh()},300)}});
+document.addEventListener("change",function(e){if(e.target.closest("main")){save();refresh()}});
+
+/* ---------- Navegación ---------- */
+function setMain(name){
+  $$(".mainnav .mbtn").forEach(function(b){var on=b.id==="main-"+name;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
+  $("#sec-negocio").hidden=name!=="negocio";$("#sec-asistente").hidden=name!=="asistente";
+  window.scrollTo(0,0);
+}
+function setTab(p){
+  $$("#sec-negocio .tab").forEach(function(b){var on=b.id==="tab-"+p;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
+  ["p1","p2","p3","pd"].forEach(function(x){$("#panel-"+x).hidden=x!==p});
+  if(p==="pd")refresh();
+}
+$$(".mainnav .mbtn").forEach(function(b){b.addEventListener("click",function(){setMain(b.id.replace("main-",""))})});
+$$("#sec-negocio .tab").forEach(function(b){b.addEventListener("click",function(){setTab(b.id.replace("tab-",""))})});
+$$("[data-go]").forEach(function(b){b.addEventListener("click",function(){setTab(b.dataset.go);$("#sec-negocio").scrollIntoView()})});
+$$("[data-main]").forEach(function(b){b.addEventListener("click",function(){setMain(b.dataset.main)})});
+function arrows(list){list.forEach(function(b,i){b.addEventListener("keydown",function(e){var n=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!n)return;var t=list[(i+n+list.length)%list.length];t.focus();t.click()})})}
+arrows($$(".mainnav .mbtn"));arrows($$("#sec-negocio .tab"));
+
+/* ---------- Ficha en Markdown ---------- */
+function v(id){var e=document.getElementById(id);return e?e.value.trim():""}
+function ticks(prefix,labels){return labels.filter(function(t,i){return $("#"+prefix+i).checked})}
+function line(label,val){return val?"- "+label+": "+val+"\n":""}
+function block(label,val){return val?"**"+label+"**\n"+val+"\n\n":""}
+function md(){
+  var o="# Mi ficha de negocio\nEscrita por mí, sin IA y sin datos personales.\n\n## 1. Qué ofrezco\n";
+  o+=block("Mi frase",v("b1"))+block("Qué vendo",v("b2"))+block("A quién se lo vendo",v("b3"))+block("Por qué me eligen o me elegirían",v("b4"))+block("Lo que NO hago o no negocio",v("b5"));
+  var sit=line("En qué punto está mi negocio",v("b6"))+line("Horas por semana",v("b7"))+line("Dónde trabajo",v("b8"))+line("Precios o forma de cobrar",v("b9"));
+  if(sit)o+="**Mi situación**\n"+sit+"\n";
+  o+="## 2. Dónde están mis clientes y aliados\n";
+  var op=ticks("o",OPPS);if(v("b10"))op.push(v("b10"));
+  if(op.length)o+="**Oportunidades que me interesan:** "+op.join(", ")+"\n\n";
+  var pr="";
+  for(var i=1;i<=5;i++){if(v("pn"+i)||v("pw"+i)){pr+=(i)+". "+(v("pn"+i)||"[sin nombre]")+(v("pt"+i)?" ("+v("pt"+i)+")":"")+(v("pw"+i)?": "+v("pw"+i).replace(/\n+/g," "):"")+"\n"}}
+  if(pr)o+="**Mis clientes o aliados prioritarios**\n"+pr+"\n";
+  var ch=ticks("c",CHANS);if(v("b11"))ch.push(v("b11"));
+  if(ch.length)o+="**Canales:** "+ch.join(", ")+"\n\n";
+  o+=line("Canal por el que empiezo esta semana",v("b12"));if(v("b12"))o+="\n";
+  o+=block("Lo que descarto",v("b13"));
+  o+="## 3. Pruebas de que lo hago bien\n";
+  for(i=1;i<=3;i++){
+    var p="e"+i;var any=["q","w","s","a","r","f"].some(function(k){return v(p+k)});
+    if(!any)continue;
+    o+="### Prueba "+i+(v(p+"q")?": "+v(p+"q"):"")+"\n"+line("Dónde y cuándo",v(p+"w"))+line("Situación",v(p+"s"))+line("Qué hice yo",v(p+"a"))+line("Resultado",v(p+"r"))+line("Para qué clientes sirve",v(p+"f"))+"\n";
+  }
+  o+=block("Experiencia anterior que aporta a mi negocio",v("b50"))+block("Herramientas, idiomas, formación y redes",v("b51"));
+  return o.trim()+"\n";
+}
+
+/* ---------- Comprobaciones ---------- */
+var PII=[[/[\w.+-]+@[\w-]+\.[\w.]+/,"un email"],[/(?:\+34[\s.-]?)?[6789]\d{2}[\s.-]?\d{2,3}[\s.-]?\d{2,3}[\s.-]?\d{0,3}\b/,"un número de teléfono"],[/\b\d{8}[A-HJ-NP-TV-Z]\b/i,"un DNI"],[/\b[XYZ]\d{7}[A-Z]\b/i,"un NIE"],[/\b(?:c\/|calle|rúa|rua|avda\.?|avenida)\s+\S+/i,"una dirección"],[/https?:\/\/(?:www\.)?(?:linkedin|instagram|facebook)\.com\/\S+/i,"un enlace a un perfil personal"]];
+function nProofs(){var n=0;for(var i=1;i<=3;i++){if(v("e"+i+"s")&&v("e"+i+"a")&&v("e"+i+"r"))n++}return n}
+function nPrios(){var n=0;for(var i=1;i<=5;i++){if(v("pn"+i))n++}return n}
+function refresh(){
+  var t=md();
+  var s1=!!(v("b1")&&v("b2")&&v("b3"));
+  var s2=nPrios()>=3;
+  var s3=nProofs()>=2;
+  var found=PII.filter(function(p){return p[0].test(t)}).map(function(p){return p[1]});
+  var mark={p1:s1,p2:s2,p3:s3,pd:s1&&s2&&s3&&!found.length};
+  $$("[data-ok]").forEach(function(e){e.textContent=mark[e.dataset.ok]?"✓":""});
+  if($("#panel-pd").hidden)return;
+  $("#preview").value=t;
+  var items=[
+    [s1,s1?"Frase, qué vendo y a quién":"Frase, qué vendo y a quién (te falta algo en el paso 1)"],
+    [nPrios()===5,"Clientes o aliados prioritarios: "+nPrios()+" de 5"],
+    [nProofs()===3,"Pruebas con situación, qué hice y resultado: "+nProofs()+" de 3"],
+    [!found.length,found.length?"Posibles datos personales":"Sin datos personales detectados"]
+  ];
+  $("#checks").innerHTML=items.map(function(x){return '<li class="'+(x[0]?"ok":"bad")+'"><span class="dot">'+(x[0]?"✓":"!")+'</span><span>'+esc(x[1])+'</span></li>'}).join("");
+  var a=$("#pii");
+  if(found.length){a.hidden=false;a.textContent="Parece que tu ficha incluye "+found.join(", ")+". Búscalo y bórralo antes de descargarla: lo que subas va a la plataforma de IA."}
+  else a.hidden=true;
+}
+
+/* ---------- Utilidades ---------- */
+function toast(m){var t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){t.hidden=true},2600)}
+function download(name,text,type){try{var b=new Blob([text],{type:type});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000);return true}catch(e){return false}}
+function copy(text,el,ok){
+  function fallback(){try{el.focus();el.select();var r=document.execCommand("copy");toast(r?ok:"Selecciona el texto y cópialo con Ctrl+C")}catch(e){toast("Selecciona el texto y cópialo con Ctrl+C")}}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){toast(ok)},fallback)}else fallback();
+}
+$("#bDown").addEventListener("click",function(){refresh();if(!download("mi_negocio.md",md(),"text/markdown;charset=utf-8"))toast("La descarga está bloqueada: usa «Copiar texto»");else toast("Ficha descargada")});
+$("#bCopyMd").addEventListener("click",function(){refresh();copy(md(),$("#preview"),"Ficha copiada")});
+$("#bCopyIns").addEventListener("click",function(){copy(INS,$("#ins"),"Instrucciones copiadas")});
+$("#bPrint").addEventListener("click",function(){window.print()});
+$("#bReset").addEventListener("click",function(){if(!confirm("¿Borrar todo lo que has escrito en este navegador? Si quieres conservarlo, descarga antes una copia."))return;try{localStorage.removeItem(KEY)}catch(e){}fields().forEach(function(e){if(e.type==="checkbox")e.checked=false;else e.value=""});refresh();toast("Todo borrado")});
+
+/* ---------- Instrucciones del asistente ---------- */
+var INS=[
+"Eres mi asistente para mi negocio o proyecto. Trabajas conmigo en español, con un tono cercano, claro y directo, sin jerga y sin adular.",
+"",
+"DOCUMENTOS CON LOS QUE TRABAJAS",
+"Debes tener como mínimo MI FICHA DE NEGOCIO: qué ofrezco y a quién, por qué me eligen, lo que no hago, mis clientes y aliados prioritarios, mis canales y mis pruebas (cosas que he hecho, con resultado). Identifícala por su contenido, no por el nombre.",
+"Además puede haber:",
+"- MI CV o MI PERFIL DE LINKEDIN, sin datos personales: úsalo para conocer mi trayectoria y mis capacidades, y busca en él pruebas que refuercen mi negocio, aunque vengan de otro sector o de otra etapa.",
+"- LA PRESENTACIÓN DE MI NEGOCIO (texto de mi web o landing page, presentación de empresa, catálogo): úsala para saber cómo me presento hoy ante mis clientes y qué ofrezco.",
+"- TEXTOS PROPIOS (artículos, emails, propuestas, publicaciones), escritos enteramente por mí sin IA: úsalos solo para captar cómo escribo y me expreso (vocabulario, tono, longitud de las frases, cómo saludo y me despido) y aplícalo cuando redactes por mí.",
+"Mi ficha manda: si otro documento la contradice, avísame antes de seguir. Si un documento cuenta algo que no está en mi ficha, pregúntame antes de usarlo como dato. Si no hay textos propios, avísame al empezar de que lo que escribas sonará más genérico.",
+"",
+"AL EMPEZAR",
+"Si mi primer mensaje es un saludo o no hay tarea clara, responde en pocas líneas: qué documentos has encontrado y cuáles faltan (ficha, CV o perfil, presentación del negocio, textos propios), una frase con qué ofrezco y a quién tal como figura en mi ficha (para que compruebe que la has leído) y las tareas disponibles: ANALIZAR, ADAPTAR y MENSAJE.",
+"Si falta la ficha, dímelo y no hagas ninguna tarea. No construyas tú mi ficha: la preparo aparte y la subo. Lo que te cuente en la conversación vale solo para esa conversación.",
+"",
+"REGLAS QUE NO SE NEGOCIAN",
+"1. No inventes nada: ni clientes, ni cifras, ni testimonios, ni premios, ni certificaciones. Si falta un dato, pregúntamelo o márcalo como [COMPLETAR]. Hechos antes que adjetivos.",
+"2. Sé honesta conmigo. Si una oportunidad no encaja o mi propuesta es floja en algo, dímelo con respeto y con motivos. Prefiero que me lleves la contraria a que me des la razón.",
+"3. Que suene a mí, no a un folleto. Evita palabras infladas (\"innovadora\", \"apasionada\", \"soluciones integrales\") salvo que las use yo.",
+"4. Cuida mi privacidad y la de mis clientes. No me pidas datos personales. Si detectas nombres de clientes particulares, teléfonos o emails, avísame y no los uses. De otras personas, solo su cargo.",
+"5. Todo es un borrador: marca lo que has asumido.",
+"6. No prometas resultados ni des consejo legal, fiscal o sobre ayudas definitivo. Los requisitos y plazos de una convocatoria los compruebo siempre en la fuente oficial; ante dudas, sugiéreme una asesoría o un servicio de apoyo al emprendimiento.",
+"",
+"CÓMO RESPONDES",
+"Respuestas cortas y accionables: primero la conclusión, luego los motivos. Si te falta información, pregúntame (máximo 3 preguntas numeradas) y espera. Al final de cada tarea, dime en una línea qué debo comprobar.",
+"",
+"TAREAS (se activan con la palabra al empezar el mensaje; si no hay, pregúntame qué quiero hacer)",
+"",
+"ANALIZAR",
+"Te pego una oportunidad: una convocatoria o ayuda, la petición de un cliente, una propuesta de colaboración, una feria o mercado. Analiza si me encaja con este formato:",
+"1. Encaje: ALTO / MEDIO / BAJO, y en 3 o 4 líneas por qué.",
+"2. Puntos fuertes: lo que cubro bien, con la prueba concreta de mi ficha o de mi CV.",
+"3. Puntos débiles: lo que cubro en parte, cómo reforzarlo con honestidad y las señales de alerta si las hay.",
+"4. Lo que no se cumple: requisitos que no cubro y cualquier choque con lo que no hago o no negocio. Si no hay, escribe \"Nada relevante\".",
+"5. Si es una convocatoria: requisitos, documentación y plazo que debo verificar en la fuente oficial.",
+"Dilo con claridad aunque sea BAJO. La decisión es siempre mía. Máximo una página.",
+"",
+"ADAPTAR",
+"Te pego una oportunidad. Adapta la presentación de mi negocio a ella en dos fases.",
+"Fase 1: en un párrafo de 6 líneas como máximo, dime qué vas a destacar y por qué.",
+"Fase 2: entrégame una descripción de mi negocio en 50 palabras, otra en 150 y las 2 o 3 pruebas más pertinentes de mi ficha o de mi CV, redactadas con situación, qué hice y resultado. Usa el vocabulario de la oportunidad solo cuando describa algo que hago de verdad. Marca con [VERIFICAR] lo que deba comprobar.",
+"",
+"MENSAJE",
+"Te indico la situación (A: mensaje a un cliente potencial; B: mensaje a un colaborador, entidad o administración; C: presentación de 30 segundos para un encuentro o evento; D: publicación para redes sociales) y el contexto. A y B: entre 80 y 130 palabras. C: unas 80, para decir en voz alta. D: entre 80 y 150, partiendo de un hecho real de mi negocio, no de una frase motivacional.",
+"Abre con una razón concreta y verdadera, no con \"me pongo en contacto\" ni elogios genéricos. Incluye UNA prueba mía con hecho y resultado. En A y B, cierra con una petición pequeña y fácil de aceptar (una conversación de 15 minutos), nunca \"quedo a su disposición\". Mi tono, no uno corporativo. No inventes datos de la otra parte. Dame dos versiones (una más cercana y otra más formal) y debajo tres cosas que debo verificar."
+].join("\n");
+$("#ins").value=INS;
+
+load();refresh();
+})();
+</script>
+</body>
+</html>
